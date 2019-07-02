@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- sql 정의하는 파일 -->
+<sqlMap>
+
+	<select id="allSelect" resultClass="kr.co.jhta.vo.Customer">
+		select
+			ct_no				no
+			, ct_name			name
+			, ct_nickname		nickname
+			, ct_tel			tel
+			, ct_email			email
+			, ct_address		address
+			, ct_point			point
+			, ct_createDate		createDate
+		from customer
+		order by
+			ct_no	asc
+	</select>
+
+	<select id="searchSelect" parameterClass="hashmap" resultClass="kr.co.jhta.vo.Customer">
+		select
+			ct_no				no
+			, ct_name			name
+			, ct_nickname		nickname
+			, ct_tel			tel
+			, ct_email			email
+			, ct_address		address
+			, ct_point			point
+			, ct_createDate		createDate
+		from customer
+		<dynamic>
+			<isNotNull property="search">
+				<isEqual property="search" compareValue="no" >
+					where ct_no = #input# 
+				</isEqual>
+				<isEqual property="search" compareValue="name" >
+					where ct_name = #input# 
+				</isEqual>
+				<isEqual property="search" compareValue="nick" >
+					where ct_nickname = #input# 
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+	</select>
+	
+
+</sqlMap>
